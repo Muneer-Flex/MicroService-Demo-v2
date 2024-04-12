@@ -9,9 +9,9 @@ spring:
       enabled: false
   datasource:
     driver-class-name: oracle.jdbc.OracleDriver
-    url:
-    username:
-    password: 
+    url: jdbc:oracle:thin:@{ip}:{port}:{serviceName}
+    username: NGA
+    password: NGA
     hikari:
       connection-timeout: 10000
       maximum-pool-size: 30
@@ -31,7 +31,7 @@ eureka:
 
 jwt:
   securityTokenBag:
-    createProfile:
+    CREATE_CUSTOMER_PROFILE:
       secretKey: 3cfa76ef14937c1c0ea519f8fc057a80fcd04a7420f8e8bcd0a7567c272e007b
       expirationTime: 600000
     ACCESS_BL_SERVICE:
