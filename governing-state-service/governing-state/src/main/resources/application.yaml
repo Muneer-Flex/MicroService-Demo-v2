@@ -6,9 +6,9 @@ spring:
     name: governing-state
   datasource:
     driver-class-name: oracle.jdbc.OracleDriver
-    url:
-    username:
-    password:
+    url: jdbc:oracle:thin:@{ip}:{port}:{serviceName}
+    username: NGA
+    password: NGA
     hikari:
       connection-timeout: 10000
       maximum-pool-size: 25
