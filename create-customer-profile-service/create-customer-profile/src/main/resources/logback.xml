@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <appender name="consoleAppender" class="ch.qos.logback.core.ConsoleAppender" >
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] [central-auth-service] [trace_id=%X{traceId:-}] [span_id=%X{spanId:-}] [requestId=%X{requestId}] [%logger] %-5level - %msg %n</pattern>
+        </encoder>
+    </appender>
+
+    <root level="INFO">
+        <appender-ref ref="consoleAppender" />
+    </root>
+
+    <logger name="com.bank.createcustomerprofile">
+        <level value="INFO"/>
+    </logger>
+
+    <!--<springProfile name="dev">
+        <root>
+            <appender-ref ref="consoleAppender" />
+        </root>
+    </springProfile>-->
+    <!--<springProfile name="prod">
+        <root>
+            <appender-ref ref="rollingFileAppender" />
+        </root>
+    </springProfile>-->
+
+</configuration>
