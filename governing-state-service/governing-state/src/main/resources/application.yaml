@@ -5,7 +5,7 @@ spring:
   application:
     name: governing-state
   datasource:
-    driver-class-name: 
+    driver-class-name: oracle.jdbc.OracleDriver
     url:
     username:
     password:
@@ -20,7 +20,6 @@ spring:
       enabled: false
 
 management:
-  endpoint:
   endpoints:
     web:
       exposure:
