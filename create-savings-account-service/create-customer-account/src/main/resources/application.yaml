@@ -1,0 +1,53 @@
+server:
+  port: 8083
+
+spring:
+  application:
+    name: create-customer-account
+  datasource:
+    driver-class-name: oracle.jdbc.OracleDriver
+    url: jdbc:oracle:thin:@{ip}:{port}:{serviceName}
+    username: NGA
+    password: NGA
+    hikari:
+      connection-timeout: 1000
+      maximum-pool-size: 30
+  cloud:
+    compatibility-verifier:
+      enabled: false
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: info, health, env
+
+eureka:
+  client:
+    enabled: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+
+application:
+  authentication:
+    username: testuser
+    password: qwerty
+  privileges:
+    createProfile: CREATE_CUSTOMER_PROFILE
+
+external:
+  integrations:
+    governingState:
+      serviceName: governing-state
+      fetchGoverningStateByZipCode: /public/v1/fetch/governingState
+    centralAuthService:
+      serviceName: central-auth-service
+      generateJwt: /public/v1/auth/generateJwt
+    createCustomerProfileService:
+      serviceName: create-customer-profile
+      createCustomerProfile: /private/v1/create/customerProfile
+
+springdoc:
+  swagger-ui:
+    enabled: true

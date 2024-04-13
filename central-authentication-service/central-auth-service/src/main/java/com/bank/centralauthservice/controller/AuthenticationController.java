@@ -15,10 +15,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -43,7 +40,7 @@ public class AuthenticationController {
             @ApiResponse(responseCode = "500", content = {@Content(schema = @Schema(implementation = ApiExceptionResponse.class), mediaType = MediaType.APPLICATION_JSON_VALUE)})
     })
     @PostMapping(value = "/generateJwt", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<AuthenticationResponse> generateJwt(@RequestBody @Valid AuthenticationRequest authenticationRequest) throws Exception {
+    public ResponseEntity<AuthenticationResponse> generateJwt(@RequestBody @Valid AuthenticationRequest authenticationRequest, @RequestHeader(value = "requestId", required = true) String requestId) throws Exception {
         logger.info("Received Request to generate JWT for user: {} to access: {}", authenticationRequest.getUserName(), authenticationRequest.getAccessRequestedFor());
 
         AuthenticationResponse authenticationResponse = authenticationService.authenticateUser(authenticationRequest);
