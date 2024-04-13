@@ -39,7 +39,9 @@ public class GoverningStateController {
     @GetMapping(value = "/fetch/governingState", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<GoverningStateResponse> fetchGoverningStateByZipCode(@RequestParam(value = "zipcode", required = true) String zipCode, @RequestHeader(value = "requestId", required = true) String requestId) throws GoverningStateException {
         logger.info("Received request to fetch governing state for {}", zipCode);
+
         GoverningStateResponse governingStateResponse = governingStateService.fetchGoverningStateByZipcode(zipCode);
+        logger.info("Governing State Response:: {}", governingStateResponse);
 
         return new ResponseEntity<>(governingStateResponse, HttpStatus.OK);
     }
