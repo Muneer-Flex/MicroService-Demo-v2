@@ -4,6 +4,7 @@ import com.bank.createcustomerprofile.constants.ErrorConstants;
 import com.bank.createcustomerprofile.jwt.JwtService;
 import com.bank.createcustomerprofile.model.ApiExceptionResponse;
 import com.bank.createcustomerprofile.utils.AppUtils;
+import org.jboss.logging.MDC;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Configuration;
@@ -39,7 +40,10 @@ public class AppFilter extends OncePerRequestFilter {
             filterChain.doFilter(request, response);
             return;
         }
-
+        String requestId = request.getHeader("requestId");
+        if (null != requestId) {
+            MDC.put("requestId", requestId);
+        }
         try {
             String jwt = bearerToken.substring(7);
             if (jwtService.isJwtValid(jwt)) {
@@ -68,6 +72,8 @@ public class AppFilter extends OncePerRequestFilter {
 
             printWriter.print(AppUtils.convertToJson(apiExceptionResponse));
             printWriter.flush();
+        } finally {
+            MDC.clear();
         }
     }
 }

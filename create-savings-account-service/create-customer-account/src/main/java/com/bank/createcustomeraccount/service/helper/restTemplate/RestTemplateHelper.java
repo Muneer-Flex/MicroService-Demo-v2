@@ -1,13 +1,17 @@
 package com.bank.createcustomeraccount.service.helper.restTemplate;
 
+import com.bank.createcustomeraccount.interceptor.RequestResponseLoggingInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.client.BufferingClientHttpRequestFactory;
+import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
+import java.util.Collections;
 
 @Component
 public class RestTemplateHelper {
@@ -25,7 +29,11 @@ public class RestTemplateHelper {
 
     @Bean
     public RestTemplate restTemplate() {
-        return new RestTemplate();
+        RestTemplate restTemplate = new RestTemplate();
+        restTemplate.setRequestFactory(new BufferingClientHttpRequestFactory(new SimpleClientHttpRequestFactory()));
+        restTemplate.setInterceptors(Collections.singletonList(new RequestResponseLoggingInterceptor()));
+
+        return restTemplate;
     }
 
     public boolean isSuccessResponse(ResponseEntity<?> responseEntity) {

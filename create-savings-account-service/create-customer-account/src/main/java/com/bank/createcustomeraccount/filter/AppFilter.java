@@ -17,7 +17,7 @@ public class AppFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String requestId = request.getHeader("requestId");
         if (null != requestId) {
-            MDC.put("requestId", request);
+            MDC.put("requestId", requestId);
         }
 
         try {
