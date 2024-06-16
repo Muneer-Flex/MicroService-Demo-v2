@@ -7,13 +7,14 @@ spring:
   datasource:
     driver-class-name: oracle.jdbc.OracleDriver
     url: jdbc:oracle:thin:@{ip}:{port}:{serviceName}
-    username: NGA
-    password: NGA
+    username: username
+    password: password
     hikari:
       connection-timeout: 10000
       maximum-pool-size: 25
   redis:
-    host: localhost
+    #host: localhost #This line is used when running as a stand-alone spring boot service.
+    host: my-redis-v1 #This line is used when running as a docker container. Using Redis server container name i.e., my-redis-v1 instead of local host
     port: 6379
   cloud:
     compatibility-verifier:
@@ -30,7 +31,8 @@ eureka:
     enabled: true
     register-with-eureka: true
     service-url:
-      defaultZone: http://localhost:8761/eureka
+      #defaultZone: http://localhost:8761/eureka  #This line is used when running as a stand-alone spring boot service
+      defaultZone: http://eureka-server:8761/eureka #This line is used when running as a docker container. Using Eureka server container name i.e., eureka-server instead of local host
 
 application:
   caches:
@@ -42,3 +44,7 @@ application:
       time-to-live: 60000
       key-prefix: governing-state-
       use-key-prefix: true
+
+logging:
+  file:
+    name: /logs/governing-state-service.log
