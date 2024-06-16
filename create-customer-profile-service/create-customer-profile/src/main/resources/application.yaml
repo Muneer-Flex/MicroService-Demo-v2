@@ -7,8 +7,8 @@ spring:
   datasource:
     driver-class-name: oracle.jdbc.OracleDriver
     url: jdbc:oracle:thin:@{ip}:{port}:{serviceName}
-    username: NGA
-    password: NGA
+    username: username
+    password: password
     hikari:
       connection-timeout: 1000
       maximum-pool-size: 30
@@ -21,7 +21,8 @@ eureka:
     enabled: true
     register-with-eureka: true
     service-url:
-      defaultZone: http://localhost:8761/eureka
+      #defaultZone: http://localhost:8761/eureka  #This line is used when running as a stand-alone spring boot service
+      defaultZone: http://eureka-server:8761/eureka #This line is used when running as a docker container. Using Eureka server container name i.e., eureka-server instead of local host
 
 management:
   endpoints:
@@ -35,3 +36,7 @@ jwt:
 springdoc:
   swagger-ui:
     enabled: true
+
+logging:
+  file:
+    name: /logs/create-customer-profile-service.log
