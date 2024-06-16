@@ -1,6 +1,7 @@
 package com.bank.createcustomeraccount.service.helper.restTemplate;
 
 import com.bank.createcustomeraccount.interceptor.RequestResponseLoggingInterceptor;
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.BufferingClientHttpRequestFactory;
@@ -11,6 +12,7 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
+import java.time.Duration;
 import java.util.Collections;
 
 @Component
@@ -30,7 +32,11 @@ public class RestTemplateHelper {
     @Bean
     public RestTemplate restTemplate() {
         RestTemplate restTemplate = new RestTemplate();
-        restTemplate.setRequestFactory(new BufferingClientHttpRequestFactory(new SimpleClientHttpRequestFactory()));
+        SimpleClientHttpRequestFactory simpleClientHttpRequestFactory = new SimpleClientHttpRequestFactory();
+        simpleClientHttpRequestFactory.setConnectTimeout(3000); //3 seconds
+        simpleClientHttpRequestFactory.setReadTimeout(3000);  //3 seconds
+
+        restTemplate.setRequestFactory(new BufferingClientHttpRequestFactory(simpleClientHttpRequestFactory));
         restTemplate.setInterceptors(Collections.singletonList(new RequestResponseLoggingInterceptor()));
 
         return restTemplate;

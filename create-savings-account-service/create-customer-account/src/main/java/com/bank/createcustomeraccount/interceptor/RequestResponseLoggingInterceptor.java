@@ -25,7 +25,7 @@ public class RequestResponseLoggingInterceptor implements ClientHttpRequestInter
     }
 
     private void logRequest(HttpRequest request, byte[] body) {
-        logger.info("Invoking ==> {} {}", request.getMethod(), request.getURI());
+        logger.info("Request Sent ==> {} {}", request.getMethod(), request.getURI());
         logger.info("Request Headers :: {}", request.getHeaders());
         logger.info("Request Body :: {}", new String(body, StandardCharsets.UTF_8));
     }
