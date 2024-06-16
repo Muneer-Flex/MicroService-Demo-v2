@@ -1,7 +1,6 @@
 package com.bank.centralauthservice.service;
 
 import com.bank.centralauthservice.constants.ErrorConstants;
-import com.bank.centralauthservice.controller.AuthenticationController;
 import com.bank.centralauthservice.entity.Privilege;
 import com.bank.centralauthservice.entity.UserPrivilege;
 import com.bank.centralauthservice.entity.Users;

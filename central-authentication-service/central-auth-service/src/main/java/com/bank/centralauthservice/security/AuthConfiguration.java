@@ -22,13 +22,13 @@ public class AuthConfiguration {
     }
 
     @Bean
-    UserDetailsService userDetailsService(){
+    public UserDetailsService userDetailsService(){
         return username -> userRepository.findByUsername(username)
                 .orElseThrow(()-> new UsernameNotFoundException(ErrorConstants.AUTH_OO1_DESCRIPTION));
     }
 
     @Bean
-    BCryptPasswordEncoder bCryptPasswordEncoder(){
+    public BCryptPasswordEncoder bCryptPasswordEncoder(){
         return new BCryptPasswordEncoder();
     }
 
@@ -38,7 +38,7 @@ public class AuthConfiguration {
     }
 
     @Bean
-    AuthenticationProvider authenticationProvider(){
+    public AuthenticationProvider authenticationProvider(){
         DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
         daoAuthenticationProvider.setUserDetailsService(userDetailsService());
         daoAuthenticationProvider.setPasswordEncoder(bCryptPasswordEncoder());

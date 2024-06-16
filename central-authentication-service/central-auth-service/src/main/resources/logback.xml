@@ -1,13 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
+    <property name="LOG_DIR" value="logs"/>
     <appender name="consoleAppender" class="ch.qos.logback.core.ConsoleAppender" >
         <encoder>
             <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] [central-auth-service] [trace_id=%X{traceId:-}] [span_id=%X{spanId:-}] [requestId=%X{requestId}] [%logger] %-5level - %msg %n</pattern>
         </encoder>
     </appender>
 
+    <appender name="rollingFileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_DIR}/central-auth-service.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- rollover daily and also when file exceeds 10MB -->
+            <fileNamePattern>${LOG_DIR}/central-auth-service.log.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>10MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] [central-auth-service] [trace_id=%X{traceId:-}] [span_id=%X{spanId:-}] [requestId=%X{requestId}] [%logger] %-5level - %msg %n</pattern>
+        </encoder>
+    </appender>
+
     <root level="INFO">
-        <appender-ref ref="consoleAppender" />
+        <appender-ref ref="rollingFileAppender" />
     </root>
 
     <logger name="com.bank.centralauthservice">

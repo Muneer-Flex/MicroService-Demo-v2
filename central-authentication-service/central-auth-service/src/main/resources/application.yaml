@@ -1,5 +1,5 @@
 server:
-  port: 8081
+  port: 8083
 
 spring:
   application:
@@ -10,8 +10,8 @@ spring:
   datasource:
     driver-class-name: oracle.jdbc.OracleDriver
     url: jdbc:oracle:thin:@{ip}:{port}:{serviceName}
-    username: NGA
-    password: NGA
+    username: username
+    password: password
     hikari:
       connection-timeout: 10000
       maximum-pool-size: 30
@@ -27,7 +27,8 @@ eureka:
     enabled: true
     register-with-eureka: true
     service-url:
-      defaultZone: http://localhost:8761/eureka
+      #defaultZone: http://localhost:8761/eureka  #This line is used when running as a stand-alone spring boot service.
+      defaultZone: http://eureka-server:8761/eureka #This line is used when running as a docker container. Using Eureka Server container name i.e., eureka-server instead of local host
 
 jwt:
   securityTokenBag:
@@ -38,6 +39,15 @@ jwt:
       secretKey: 3cfa76ef14937c1c0ea519f8fc057a80fcd04a7420f8e8bcd0a7567c272e007b
       expirationTime: 600000
 
+#Above Secret Keys should be in HMAC hash string of 256 bits Format.
+#Reference: https://medium.com/@tericcabrel/implement-jwt-authentication-in-a-spring-boot-3-application-5839e4fd8fac
+#https://devglan.com/online-tools/hmac-sha256-online?ref=blog.tericcabrel.com
+#Or Refer Java Techie Youtube Channel for Spring Security
+
 springdoc:
   swagger-ui:
     enabled: true
+
+logging:
+  file:
+    name: /logs/central-auth-service.log

@@ -2,6 +2,7 @@ package com.bank.centralauthservice.security.jwt;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.context.properties.NestedConfigurationProperty;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
@@ -12,6 +13,7 @@ import java.util.Map;
 @Data
 public class JwtConfiguration {
 
+    @NestedConfigurationProperty
     private Map<String, JwtProperty> securityTokenBag;
 
     @Component
