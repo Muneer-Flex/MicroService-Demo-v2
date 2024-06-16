@@ -2,6 +2,9 @@ package com.bank.governingstate.constants;
 
 public class ErrorConstants {
 
+    private ErrorConstants() {
+        //Default Private Constructor
+    }
     public static final String GS_001 = "GS_001";
 
     public static final String GS_001_DESCRIPTION = "Governing State Not Found for provided ZipCode in the database";

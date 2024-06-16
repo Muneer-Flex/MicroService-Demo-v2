@@ -22,10 +22,12 @@ public class GoverningStateException extends GlobalException {
         this.errorCode = errorCode;
     }
 
+    @Override
     public String getErrorCode() {
         return errorCode;
     }
 
+    @Override
     public void setErrorCode(String errorCode) {
         this.errorCode = errorCode;
     }

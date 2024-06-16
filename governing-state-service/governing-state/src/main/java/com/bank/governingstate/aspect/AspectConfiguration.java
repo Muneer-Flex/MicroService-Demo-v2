@@ -29,7 +29,7 @@ public class AspectConfiguration {
         stopWatch.stop();
 
         if(logMethodTimeExecution) {
-            logger.info("Time Taken by "+className+"."+methodName+" is:: "+stopWatch.getTotalTimeMillis()+" ms");
+            logger.info("Time Taken by {}.{} is :: {} ms", className, methodName, stopWatch.getTotalTimeMillis());
         }
 
         return result;

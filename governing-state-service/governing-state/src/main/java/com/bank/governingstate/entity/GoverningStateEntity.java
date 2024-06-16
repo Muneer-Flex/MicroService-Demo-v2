@@ -31,4 +31,12 @@ public class GoverningStateEntity implements Serializable {
     @CreationTimestamp
     @Column(name = "CREATED_ON", nullable = false)
     private Date createdOn;
+
+    public Long getGoverningStateId() {
+        return governingStateId;
+    }
+
+    public void setGoverningStateId(Long governingStateId) {
+        this.governingStateId = governingStateId;
+    }
 }
